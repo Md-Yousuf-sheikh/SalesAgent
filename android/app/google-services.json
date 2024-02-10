@@ -1,0 +1,114 @@
+{
+  "project_info": {
+    "project_number": "1092952025615",
+    "project_id": "waadaainsurefirebase",
+    "storage_bucket": "waadaainsurefirebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1092952025615:android:8b230b72db67fa5cae517a",
+        "android_client_info": {
+          "package_name": "com.waadaa.insurance.b2c"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1092952025615-0dp4q29sk28a1sp0jsrkpq3mh1nvd63v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.waadaa.insurance.b2c",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "1092952025615-2kccmahlj7gia3l87nb1v0qv58n1q9mj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.waadaa.insurance.b2c",
+            "certificate_hash": "dcb0e52b087531eefac2ced224109dd74ed1e0ee"
+          }
+        },
+        {
+          "client_id": "1092952025615-t3eepu9gg0fm9ohc43pkvsjkc7ec5dkh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFSpptdg1vbxk89jjpqeKE9XC8cAYL2ys"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1092952025615-t3eepu9gg0fm9ohc43pkvsjkc7ec5dkh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1092952025615-aeliae7qv2o3ta6ggdpeqfa1dv4dtqr4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.waadaa.waadaainsure.app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1092952025615:android:6a04dceecf5cbbf6ae517a",
+        "android_client_info": {
+          "package_name": "com.waadaa.insure.agent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1092952025615-aucdb3o4s0nj824f5m7n28vdiitq5j1a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.waadaa.insure.agent",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "1092952025615-ftm7qfks13f82acgepbqqr8167n2v0d5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.waadaa.insure.agent",
+            "certificate_hash": "dcb0e52b087531eefac2ced224109dd74ed1e0ee"
+          }
+        },
+        {
+          "client_id": "1092952025615-t3eepu9gg0fm9ohc43pkvsjkc7ec5dkh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFSpptdg1vbxk89jjpqeKE9XC8cAYL2ys"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1092952025615-t3eepu9gg0fm9ohc43pkvsjkc7ec5dkh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1092952025615-aeliae7qv2o3ta6ggdpeqfa1dv4dtqr4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.waadaa.waadaainsure.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

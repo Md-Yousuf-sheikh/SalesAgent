@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1092952025615-f7nteq58hvhr0slb3i37niqredakar24.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1092952025615-f7nteq58hvhr0slb3i37niqredakar24</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1092952025615-0dp4q29sk28a1sp0jsrkpq3mh1nvd63v.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD-HH-2qnEYWKqhkqFyqiF_4VHzo3jGjs4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1092952025615</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.waadaa.insure.agent</string>
+	<key>PROJECT_ID</key>
+	<string>waadaainsurefirebase</string>
+	<key>STORAGE_BUCKET</key>
+	<string>waadaainsurefirebase.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1092952025615:ios:1de6e2fcbdeb3bcaae517a</string>
+</dict>
+</plist>

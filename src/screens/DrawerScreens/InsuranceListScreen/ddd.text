@@ -1,0 +1,358 @@
+import {
+  FlatList,
+  StatusBar,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import DrawerHeader from "../../../components/Headers/DrawerHeader";
+import { COLOR, CONTAINER, rf, rh, ROW, rw } from "../../../theme/Theme";
+import Text from "../../../components/Text/Text";
+import PopularInsuranceCard from "../HomeScreen/PopularInsuranceCard";
+import SvgSearchIcon from "../../../svg/SvgSearchIcon";
+import { useSelector } from "react-redux";
+import { useGetPoliciesListBySlugQuery } from "../../../redux/features/policy/policyApiSlice";
+import { Dimensions } from "react-native";
+import ListCard from "../../../components/Skeleton/ListSkeletonPopularcard";
+import MediumButton from "../../../components/Buttons/MediumButton";
+import { Path, Svg } from "react-native-svg";
+import FilterModal from "./FilterModal";
+import DataNotFound from "../../../components/Shared/DataNotFound";
+import {
+  codeSelector,
+  languageSelector,
+} from "../../../redux/features/language/languageSlice";
+import { selectedPolicyCategoryList } from "../../../redux/features/policy/policySlice";
+import { selectedPolicyCategory } from "../../../redux/features/InsuranceBuy/InsuranceBuyApiSlice";
+const { width, height } = Dimensions.get("window");
+
+export default function InsuranceListScreen() {
+  const slug = "health";
+  const id = 1;
+  const policyCategoryList = useSelector(selectedPolicyCategoryList);
+  const language = useSelector(languageSelector);
+  const code = useSelector(codeSelector);
+  const selSlag = useSelector(selectedPolicyCategory);
+  const [timeOut, setTimeout] = useState(false);
+  const [policyFor, setPolicyFor] = useState("b2c");
+  const [selectedIndex, setSelectedIndex] = useState(slug);
+  const [currentIndex, setCurrentIndex] = useState(id - 1);
+  const refFlatList = useRef();
+  const [selectedCategory, setSelectedCategory] = useState(
+    policyCategoryList?.[0]
+  );
+  const [mainPolicyDatas, setMainPolicyDatas] = useState([]);
+  const [filterPolicy, setFilterPolicy] = useState({
+    isVisible: false,
+    investedAmount: "",
+    durationType: "",
+    duration: "",
+    insurer: "",
+  });
+  //
+  const { data, isLoading, refetch } = useGetPoliciesListBySlugQuery({
+    slug,
+    code,
+    filter: `policy_for=${policyFor}&${filterPolicy?.filter}`,
+  });
+  console.log("dataDataa", data);
+
+  const [blueTest, setBlueTest] = useState(true);
+  const [fillup, setfillup] = useState(false);
+  const [userInfo, setUserInfo] = useState();
+
+  useEffect(() => {
+    function onScrollToItemSelected() {
+      refFlatList.current.scrollToOffset({
+        animated: true,
+        offset: rw(30) * currentIndex,
+      });
+    }
+    // if (currentIndex > 1) {
+    onScrollToItemSelected();
+    // }
+  }, [selectedCategory]);
+
+  useEffect(() => {
+    setTimeout(true);
+    const interval = setInterval(() => {
+      setTimeout(false);
+    }, 500);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [selectedIndex]);
+
+  function getItemLayout(data, index) {
+    return { length: width, offset: width * index, index };
+  }
+
+  //searchFilter
+  const searchFilterFunction = (text) => {
+    // Check if searched text is not blank
+    if (text) {
+      const newData = mainPolicyDatas?.filter(function (item) {
+        const itemData = item.name ? item.name.toUpperCase() : "".toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+    } else {
+    }
+  };
+
+  return (
+    <View style={CONTAINER}>
+      <StatusBar backgroundColor={"#2253a5"} barStyle={"light-content"} />
+      {/* <FilterModal
+        setFilterPolicy={setFilterPolicy}
+        filterPolicy={filterPolicy}
+        handleSubmit={getPolicyByCat}
+        fillup={fillup}
+        isLoading={policyCatLoading}
+        handleReset={handleReset}
+        userInfo={userInfo}
+        setUserInfo={setUserInfo}
+      /> */}
+
+      <DrawerHeader title={language.InsuranceListHeader} />
+      <View style={styles.container}>
+        {/* List  catagories */}
+        <View>
+          <FlatList
+            data={policyCategoryList.slice(0, 5)}
+            horizontal
+            keyExtractor={(index) => index?.toString() + "ddd"}
+            showsHorizontalScrollIndicator={false}
+            renderItem={(item, index) => {
+              return (
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  style={[
+                    {
+                      paddingHorizontal: 12,
+                      paddingVertical: 5,
+                      borderRadius: 30,
+                      backgroundColor:
+                        currentIndex === item?.index ? "#3369B3" : "#ffffffff",
+                      borderWidth: 1,
+                      borderColor: "#3369B3",
+                      marginHorizontal: 2,
+                      elevation: 5,
+                      marginTop: 10,
+                    },
+                    selectedCategory?.id === item?.item?.id && {
+                      borderBottomWidth: 1.5,
+                      borderColor: "#3369B3",
+                    },
+                  ]}
+                  onPress={() => {
+                    setSelectedCategory(item?.item);
+                    setSelectedIndex(item?.item?.slug);
+                    setCurrentIndex(item?.item?.id - 1);
+                    handleCategoryPress(item?.item?.slug);
+                  }}
+                >
+                  <Text
+                    preset="h6"
+                    color={currentIndex === item?.index ? "#ffff" : "#646464"}
+                  >
+                    {item?.item?.title}
+                  </Text>
+                </TouchableOpacity>
+              );
+            }}
+            getItemLayout={getItemLayout}
+            ref={refFlatList}
+          />
+        </View>
+        {/* search filed */}
+        <View style={styles.searchFilterContainer}>
+          <View style={styles.searchInputContainer}>
+            <TextInput
+              placeholder={language.searchPlaceHolderText}
+              style={styles.searchInput}
+              onChangeText={(val) => searchFilterFunction(val)}
+            />
+            <TouchableOpacity style={styles.searchInputButton}>
+              <SvgSearchIcon />
+            </TouchableOpacity>
+          </View>
+          {/* Filter button */}
+          <View style={[ROW, { marginLeft: rh(1) }]}>
+            <TouchableOpacity
+              onPress={() => {
+                setPolicyFor("b2c");
+                refetch();
+              }}
+              style={{
+                height: rh(5),
+                width: rw(11),
+                backgroundColor: policyFor === "b2c" ? "#2253A5" : COLOR.white,
+                borderWidth: rh(0.1),
+                borderColor: !policyFor === "b2b" ? "#C7C7C7" : "#2253A5",
+                borderRadius: rh(0.5),
+                alignItems: "center",
+                justifyContent: "center",
+                left: policyFor === "b2c" ? rh(0.4) : rh(0),
+                zIndex: policyFor === "b2c" ? 1 : 0,
+                borderRightWidth: rh(0),
+              }}
+            >
+              <Text
+                style={{
+                  color: policyFor === "b2c" ? COLOR.white : COLOR.black,
+                }}
+              >
+                {language.b2C}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                setPolicyFor("b2b");
+                refetch();
+              }}
+              style={{
+                height: rh(5),
+                width: rw(11),
+                backgroundColor: policyFor === "b2b" ? "#2253A5" : COLOR.white,
+                borderWidth: rh(0.1),
+                borderColor: !policyFor === "b2c" ? "#C7C7C7" : "#2253A5",
+                borderRadius: rh(0.5),
+                alignItems: "center",
+                justifyContent: "center",
+                right: policyFor === "b2b" ? rh(0.4) : rh(0),
+                borderLeftWidth: rh(0),
+              }}
+            >
+              <Text
+                style={{
+                  color: policyFor === "b2b" ? COLOR.white : COLOR.black,
+                }}
+              >
+                {language.b2B}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          {/*  */}
+          <View style={ROW}>
+            <MediumButton
+              onPress={() => {
+                setFilterPolicy((prv) => ({
+                  ...prv,
+                  isVisible: true,
+                }));
+              }}
+              // title={language.filterButtonText}
+              stylesButton={{
+                width: rw(10),
+                marginVertical: 0,
+                elevation: 0,
+                backgroundColor: "#0099C9",
+                height: rh(5),
+                marginLeft: rh(1),
+              }}
+              icon={
+                <>
+                  <Svg width={13} height={13} fill="none">
+                    <Path
+                      d="M0 0v.781c.001.092.036.18.096.244l4.66 5.134c.06.065.094.152.095.244v4.807c0 .065.017.129.049.184.031.056.077.1.13.13l2.529.983a.297.297 0 0 0 .31-.018.338.338 0 0 0 .11-.127.374.374 0 0 0 .04-.169V6.341a.389.389 0 0 1 .116-.244l4.557-5.058a.365.365 0 0 0 .096-.244V0H0Z"
+                      fill="#fff"
+                    />
+                  </Svg>
+                </>
+              }
+            />
+          </View>
+        </View>
+        {/* list */}
+        <View style={{ height: "100%", paddingBottom: rh(20) }}>
+          <FlatList
+            contentContainerStyle={{ marginBottom: 5 }}
+            data={data?.data || []}
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={(index) => index?.toString() + "ddd"}
+            renderItem={(item, index) => {
+              return (
+                <PopularInsuranceCard
+                  item={item?.item}
+                  polType={policyFor === "b2c" ? "B2C" : "B2B"}
+                />
+              );
+            }}
+            ListEmptyComponent={
+              isLoading ? (
+                <>
+                  <ListCard />
+                </>
+              ) : (
+                <>
+                  <DataNotFound />
+                </>
+              )
+            }
+          />
+        </View>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingHorizontal: rw(3),
+    paddingBottom: rh(4),
+    // alignItems: 'center',
+  },
+  //
+  searchFilterContainer: {
+    paddingVertical: rh(2.5),
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  searchInputContainer: {
+    flexDirection: "row",
+  },
+  searchInput: {
+    borderWidth: 1,
+    height: rh(6),
+    borderColor: "#E5EAFF",
+    // borderTopLeftRadius: rh(0.6),
+    // borderBottomLeftRadius: rh(0.6),
+    width: rw(47),
+    paddingHorizontal: rh(1.2),
+    fontSize: rf(1.7),
+    borderRightWidth: 0,
+    borderTopLeftRadius: rh(1.2),
+    borderBottomLeftRadius: rh(1.2),
+  },
+  searchInputButton: {
+    borderWidth: 1,
+    height: rh(6),
+    borderColor: "#E5EAFF",
+    paddingRight: rh(1),
+    paddingLeft: rh(1.2),
+    alignItems: "center",
+    justifyContent: "center",
+    paddingTop: rh(1.2),
+    // borderTopRightRadius: 5,
+    // borderBottomRightRadius: 5,
+    borderLeftWidth: 0,
+    borderTopRightRadius: rh(1.2),
+    borderBottomRightRadius: rh(1.2),
+  },
+  flexDirection: "row",
+  filterButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#0099C9",
+    height: 46,
+    borderRadius: 3,
+    width: rw(25),
+    justifyContent: "center",
+  },
+});
