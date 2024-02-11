@@ -6,7 +6,7 @@ export const notificationApiSlice = apiSlice
   })
   .injectEndpoints({
     endpoints: (builder) => ({
-      getUnreadNotificaitons: builder.query({
+      getUnreadNotifications: builder.query({
         query: ([userUid]) => {
           return {
             url: `agents/own/notifications/${userUid}/unread/count`,
@@ -56,8 +56,8 @@ export const notificationApiSlice = apiSlice
   });
 
 export const {
-  useGetUnreadNotificaitonsQuery,
   useGetAllNotificationsQuery,
   useGetLocationConfigQuery,
   useRedAllNotificationQuery,
+  useGetUnreadNotificationsQuery
 } = notificationApiSlice;

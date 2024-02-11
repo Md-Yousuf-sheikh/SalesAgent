@@ -1,5 +1,5 @@
 import { Dimensions, Platform } from "react-native";
-import { BACKEND_BASE_IMAGE_URL } from "./confige.env";
+import { BACKEND_BASE_IMAGE_URL } from "./config.env";
 
 const { height: D_HEIGHT, width: D_WIDTH } = (() => {
   const { width, height } = Dimensions.get("window");

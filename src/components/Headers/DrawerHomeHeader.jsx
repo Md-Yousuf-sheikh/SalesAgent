@@ -19,7 +19,7 @@ import {
   useGetUnreadNotificaitonsQuery,
 } from "../../redux/features/notifications/notificationApiSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { MAP_KEY } from "../../utils/confige.env";
+import { MAP_KEY } from "../../utils/config.env";
 import { useGetTranslationMutation } from "../../redux/features/language/languageApiSlice";
 import {
   codeSelector,

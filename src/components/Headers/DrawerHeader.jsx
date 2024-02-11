@@ -14,8 +14,8 @@ import { useSubmitLocationMutation } from "../../redux/features/customer/custome
 import axios from "axios";
 import { useLazyGetMyInfoQuery } from "../../redux/features/user/userApiSlice";
 import { setMyData } from "../../redux/features/user/userSlice";
-import { useGetUnreadNotificaitonsQuery } from "../../redux/features/notifications/notificationApiSlice";
-import { MAP_KEY } from "../../utils/confige.env";
+import { useGetUnreadNotificationsQuery } from "../../redux/features/notifications/notificationApiSlice";
+import { MAP_KEY } from "../../utils/config.env";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { languageSelector } from "../../redux/features/language/languageSlice";
 import CompareOfferModal from "../../screens/DrawerScreens/HomeScreen/CompareModal";
@@ -26,15 +26,16 @@ export default function DrawerHeader({ title, nav, test, startIcon = true }) {
   const navigation = useNavigation();
   const languageState = useSelector(languageSelector);
   const myData = useSelector((state) => state?.user?.myData);
-
+  const myUserData = useSelector((state) => state?.auth?.user);
+  // config
   //  notification modal
   const [IsVisible, setIsVisible] = useState(false);
   const [location, setLocation] = useState();
   const [address, setAddress] = useState();
+  const [submitLocation, { isLoading }] = useSubmitLocationMutation();
   const [getMyData] = useLazyGetMyInfoQuery();
-
-  const { data: unredNotifications, isLoading: unreadLoading } =
-    useGetUnreadNotificaitonsQuery([myData?.agent?.uid]);
+  const { data: unRedNotifications, isLoading: unreadLoading } =
+    useGetUnreadNotificationsQuery([myData?.agent?.uid]);
 
   //  handel menu
   const handleDrawer = () => {
@@ -92,7 +93,62 @@ export default function DrawerHeader({ title, nav, test, startIcon = true }) {
     }
   }, [location]);
 
+  const submitCurLocation = async () => {
+    let data = {
+      location: {
+        name: address,
+      },
+      agent_id: myUserData?.id,
+    };
+    try {
+      const res = await submitLocation(data).unwrap();
+      console.log("submitCurLocation", res);
+    } catch (error) {
+      console.log("timetrack", error);
+    }
+  };
 
+  useEffect(() => {
+    // Function to get the current date and time as a timestamp.
+    function getCurrentTimestamp() {
+      return new Date().getTime();
+    }
+    //
+    async function checkAndSubmitLocation() {
+      const savedTimestamp = await AsyncStorage.getItem("savedTimestamp");
+
+      if (!savedTimestamp) {
+        // If there is no saved timestamp, save the current timestamp and submit the location.
+        await AsyncStorage.setItem(
+          "savedTimestamp",
+          getCurrentTimestamp().toString()
+        );
+        submitCurLocation();
+      } else {
+        const currentTime = getCurrentTimestamp();
+        const savedTime = parseInt(savedTimestamp, 10);
+
+        // Check if 1 hour (3600,000 milliseconds) has passed.
+        if (currentTime - savedTime >= 3600000) {
+          await AsyncStorage.setItem("savedTimestamp", currentTime.toString());
+          submitCurLocation();
+        }
+      }
+    }
+    // Call checkAndSubmitLocation when the component mounts.
+    if (address !== undefined) {
+      checkAndSubmitLocation();
+    }
+
+    // Set an interval to periodically call checkAndSubmitLocation.
+    const intervalId = setInterval(checkAndSubmitLocation, 500000);
+
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [address]);
 
   // get my personal
   useEffect(() => {
@@ -149,7 +205,7 @@ export default function DrawerHeader({ title, nav, test, startIcon = true }) {
               onPress={handelNotification}
             >
               <Text style={{ fontSize: rh(1.1), color: COLOR.white }}>
-                {unredNotifications !== undefined ? unredNotifications[0] : 0}
+                {unRedNotifications !== undefined ? unRedNotifications[0] : 0}
               </Text>
             </TouchableOpacity>
           </TouchableOpacity>

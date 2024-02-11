@@ -11,7 +11,7 @@ import BellIcon from "../../../assets/bell-icon.svg";
 import { userInfo } from "../../dummy/DummyData";
 import NotificationModal from "../../screens/DrawerScreens/NotificationModal/NotificationModal";
 import { useSelector } from "react-redux";
-import { useGetUnreadNotificaitonsQuery } from "../../redux/features/notifications/notificationApiSlice";
+import { useGetUnreadNotificationsQuery } from "../../redux/features/notifications/notificationApiSlice";
 // import AgentTargetCard from
 
 export default function StatisticsHeader({ title }) {
@@ -20,10 +20,10 @@ export default function StatisticsHeader({ title }) {
   const myData = useSelector((state) => state?.user?.myData);
   const myUserData = useSelector((state) => state?.auth?.user);
 
-  const { data: unredNotifications, isLoading: unreadLoading } =
-    useGetUnreadNotificaitonsQuery([myData?.agent?.uid]);
+  const { data: unRedNotifications, isLoading: unreadLoading } =
+    useGetUnreadNotificationsQuery([myData?.agent?.uid]);
 
-  console.log("unread", unredNotifications);
+  console.log("unread", unRedNotifications);
 
   //  handel menu
   const handelDrawer = () => {
@@ -93,7 +93,7 @@ export default function StatisticsHeader({ title }) {
               onPress={handelNotification}
             >
               <Text style={{ fontSize: rh(1.1), color: COLOR.white }}>
-                {unredNotifications !== undefined ? unredNotifications[0] : 0}
+                {unRedNotifications !== undefined ? unRedNotifications[0] : 0}
               </Text>
             </TouchableOpacity>
           </TouchableOpacity>
