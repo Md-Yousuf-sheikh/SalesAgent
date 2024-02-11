@@ -10,8 +10,8 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 First, clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/waadaaInsure.git
-cd waadaaInsure
+git clone https://github.com/Md-Yousuf-sheikh/SalseAgent.git
+cd SalseAgent
 
 ```bash
 # using npm
@@ -52,6 +52,8 @@ This is one way to run your app — you can also run it directly from within And
 ## Step 3: Modifying your App
 
 Now that you have successfully run the app, let's modify it.
+
+Change config url to go config.js file
 
 1. Open `App.js` in your text editor of choice and edit some lines.
 2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
