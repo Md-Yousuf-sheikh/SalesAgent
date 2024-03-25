@@ -1,0 +1,12 @@
+export const EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,20}$/i;
+export const PHONE_REGEX = /^88\d{11}$/;
+export const NUMBER_REGEX = /^\d+$/;
+export const CHARACTER_SPACE_REGEX = /^[a-zA-Z\s\-\.]*$/;
+export const CHARACTER_SPACE_UNDERSCORE_REGEX = /^[a-zA-Z\s_]*$/;
+export const CHARACTER_SPACE_DASH_REGEX = /^[a-zA-Z\s-]*$/;
+export const CUSTOM_REGEX = /^[a-zA-Z0-9+)(\s_\-\.`]*$/;
+export const CHARACTER_NUMBER_REGEX = /^[a-zA-Z0-9]+$/;
+export const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
+export const Cookie_Expire_Time = 60 * 60 * 2;
+export const NID_REGEX = /^(?:\d{10}|\d{13}|\d{17})$/;
+export const PASSPORT_REGEX = /^[A-Za-z0-9]{7,9}$/;

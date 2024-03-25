@@ -1,0 +1,25 @@
+ sudo keytool -genkey -v -keystore sales_agent.keystore -alias sales_agent-alias -keyalg RSA -keysize 2048 -validity 10000  
+
+Password: 123abc
+Enter keystore password:  %                                                                                                                                       mdyousufsheikh@MDs-MacBook-Air app % sudo keytool -genkey -v -keystore sales_agent.keystore -alias sales_agent-alias -keyalg RSA -keysize 2048 -validity 10000  
+
+Enter keystore password:  
+Re-enter new password: 
+What is your first and last name?
+  [Unknown]:  Sales Agent
+What is the name of your organizational unit?
+  [Unknown]:  waadaa insure
+What is the name of your organization?
+  [Unknown]:  waadaa ltd
+What is the name of your City or Locality?
+  [Unknown]:  dhaka bangladesh
+What is the name of your State or Province?
+  [Unknown]:  dhaka
+What is the two-letter country code for this unit?
+  [Unknown]:  bd
+Is CN=Sales Agent, OU=waadaa insure, O=waadaa ltd, L=dhaka bangladesh, ST=dhaka, C=bd correct?
+  [no]:  yes
+
+Generating 2,048 bit RSA key pair and self-signed certificate (SHA256withRSA) with a validity of 10,000 days
+	for: CN=Sales Agent, OU=waadaa insure, O=waadaa ltd, L=dhaka bangladesh, ST=dhaka, C=bd
+[Storing sales_agent.keystore]
