@@ -136,7 +136,7 @@ export default function PaymentSuccessModal({
                   {language?.policyCoverageAmount}
                 </Text>
                 <Text preset="h6" style={styles.tableTextRight}>
-                  {language?.bdt}{" "}
+                  {item?.category?.id === 2 ? "USD" : language?.bdt}{" "}
                   {toBnNum(
                     item?.total_coverage_amount
                       ? CurrencyFormatToFixed(item?.total_coverage_amount)

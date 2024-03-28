@@ -164,7 +164,7 @@ export default function PolicyDetail({ route }) {
                     >
                       {language?.secure_up_to}{" "}
                       <Text preset="h3" color={"#2253A5"}>
-                        {language?.bdt}{" "}
+                        {item?.category?.id === 2 ? "USD" : language?.bdt}{" "}
                         {ToBnNum(
                           CurrencyFormat(policies?.total_coverage_amount),
                           code
@@ -217,7 +217,7 @@ export default function PolicyDetail({ route }) {
                       >
                         {item?.category?.id !== 1 &&
                           `${language?.upto || "Upto"} `}
-                        {language?.bdt}{" "}
+                        {item?.category?.id === 2 ? "USD" : language?.bdt}{" "}
                         {ToBnNum(
                           CurrencyFormat(policies?.total_coverage_amount),
                           code

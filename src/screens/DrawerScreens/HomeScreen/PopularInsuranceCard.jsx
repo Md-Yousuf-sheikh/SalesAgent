@@ -206,7 +206,7 @@ export default function PopularInsuranceCard({
               style={[styles.listItemText, { fontWeight: "bold" }]}
             >
               {item?.category?.id !== 1 && `${language?.upto || "Upto"}${"\n"}`}
-              {language?.bdt}{" "}
+              {item?.category?.id === 2 ? "USD" : language?.bdt}{" "}
               {ToBnNum(CurrencyFormat(total_coverage_amount), code)}
             </Text>
           </View>

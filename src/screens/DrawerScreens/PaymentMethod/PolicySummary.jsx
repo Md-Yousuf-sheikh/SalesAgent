@@ -12,7 +12,6 @@ import {
 export default function PolicySummary({ item, calItem }) {
   const language = useSelector(languageSelector);
   const code = useSelector(codeSelector);
-  // console.log("item******", item);
   return (
     <View>
       <Text preset="h3" color={"#4F4F4F"}>
@@ -77,7 +76,7 @@ export default function PolicySummary({ item, calItem }) {
             {language?.policyCoverageAmount}
           </Text>
           <Text preset="h6" style={styles.tableTextRight}>
-            {language?.bdt}{" "}
+            {item?.category?.id === 2 ? "USD" : language?.bdt}{" "}
             {toBnNum(CurrencyFormatToFixed(item?.total_coverage_amount), code)}
           </Text>
         </View>
